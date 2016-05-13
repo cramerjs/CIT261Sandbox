@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<!-- Rock, Paper, Scissors -->
+<html>
+    <head>
+        <title>Rock, Paper, Scissors</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript">
+			var compare = function (playerChoice, computerChoice) {
+				switch(playerChoice) {
+				case "rock":
+					if (computerChoice == "scissors") {
+						return "You Win :)"
+					} else if (computerChoice == "rock") {
+						return "Draw :|";
+					} else {
+						return "You Lose :(";
+					}
+					break;
+				case "paper":
+					if (computerChoice == "scissors") {
+						return "You Lose :(";
+					} else if (computerChoice == "rock") {
+						return "You Win :)";
+					} else {
+						return "Draw :|";
+					}
+					break;
+				case "scissors":
+					if (computerChoice == "scissors") {
+						return "Draw :|";
+					} else if (computerChoice == "rock") {
+						return "You Lose :(";
+					} else {
+						return "You Win :)";
+					}
+					break;
+				}
+			}
+
+			var playerChoice = prompt("Do you choose rock, paper, or scissors?");
+			var computerChoice = Math.random();
+			
+			if(computerChoice < 0.33) {
+				compterChoice = "rock";
+			} else if(computerChoice > 0.66) {
+				computerChoice = "scissors";
+			} else {
+				computerChoice = "paper";
+			};
+			
+			window.alert("The compter chose " + computerChoice + ". " + compare(playerChoice, computerChoice));
+			
+        </script>
+    </head>
+    <body>
+        <h1>Rock, Paper, Scissors</h1>
+    </body>
+</html>
