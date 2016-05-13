@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<!-- Object Creation Functions, Inheritance, Properties, Methods, Instantiation -->
+<html>
+    <head>
+        <title>JSObjects</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript">
+            // Create an object using an Object Literal
+            var pikachu = {name: "pikachu", type: "electric", trainer: "Ash"};
+            console.log(pikachu.type);
+            
+            // NASTY PATHS:
+            // cannot exclude names from name:value pairs
+        //    var squirtle = {"squirtle", "water", "Ash"};
+            // cannot exclude values from name:value pairs
+        //    var charmander = {name, type, trainer}; 
+            // must be assigned to a variable
+        //    {name: "bulbusar", type: "grass", trainer: "Ash"};
+            
+            // Create an object using thge "new" keyword (Object Literal method is preferred when creating a single obj)
+            var lickitung = new Object();
+            lickitung.name = "Lickitung";
+            lickitung.type = "normal";
+            lickitung.trainer = "Jessie";
+			console.log(lickitung.trainer);
+
+			// Built in functions
+            var birthdate = new Date();
+			birthdate.month = "July";
+			birthdate.day = 5;
+			birthdate.year = 1991;
+			birthdate.displayBirthdate = function() {
+				console.log(birthdate.month + " " + birthdate.day + ", " + birthdate.year);
+			}
+			birthdate.displayBirthdate();
+
+/*
+            // Uncaught TypeError: Math is not a constructor
+            var unknown = new Math();
+            unknown.name = "unknown";
+            unknown.operator = "*+";
+			unknown.doMath = function() {
+				console.log(unknown.operator)
+			}
+*/
+			
+            // Create an object using an object constructor with properties and methods
+            function Pokemon(name, type, trainer, caughtIn) {
+                this.name = name;
+                this.type = type;
+                this.trainer = trainer;
+                this.caughtIn = caughtIn;
+                this.giveNickname = function(name) {
+                    this.name = name;
+                }
+                this.pokeCall = function() {
+                    return name + " " + name + "!!";
+                }
+            }
+            var Blastoise = new Pokemon("Blastoise", "water", "Gary", "Pallet Town");
+            var Geodude = new Pokemon("Geodude", "rock", "Joe", "Pewter City");
+            
+            console.log(Blastoise.pokeCall());
+            console.log(Blastoise.pokeCall);
+			
+            // Inheritance
+			function SecondGenPokemon(name, type, type2, trainer, caughtIn, baby) {
+				Pokemon.call(this, name, type, trainer, caughtIn);
+				this.type2 = type2;
+				this.baby = baby;
+			}
+			var Noctowl = new SecondGenPokemon("Noctowl", "psychic", "flying", "Ash", "Route 1", false);
+			console.log(Noctowl.type2);
+//			console.log(Noctowl.pokecall());
+			
+			
+/*			
+			function thirdGenPokemon(name, type, type2, trainer, caughtIn, baby, ability, beauty) {
+                this.inheritFrom = secondGenerationPokemon;
+				this.inheritFrom();
+				this.ability = ability;
+				this.beauty = beauty;
+				this.eatPKBlock = function(increase) {
+					beauty += increase;
+				}
+            }
+			var sharpedo = new thirdGenPokemon("Sharpedo", "water", "dark", "Team Aqua", "Route 123", false, "Sharp Skin", 1);
+			console.log(sharpedo.beauty);
+			console.log(sharpedo.eatPKBlock(3);
+*/			
+        </script>
+    </head>
+    <body>
+        <h1>Object Creation Functions, Inheritance, Properties, Methods, Instantiation</h1>
+		<h3>See Browser Console</h3>
+    </body>
+</html>
