@@ -6,26 +6,30 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script type="text/javascript">
-            // Create an object using an Object Literal
+		
+			/*---- Object Creation Functions ----*/
+            // creates an object using an Object Literal
             var pikachu = {name: "pikachu", type: "electric", trainer: "Ash"};
             console.log(pikachu.type);
-            
-            // NASTY PATHS:
-            // cannot exclude names from name:value pairs
-        //    var squirtle = {"squirtle", "water", "Ash"};
-            // cannot exclude values from name:value pairs
-        //    var charmander = {name, type, trainer}; 
-            // must be assigned to a variable
-        //    {name: "bulbusar", type: "grass", trainer: "Ash"};
-            
-            // Create an object using thge "new" keyword (Object Literal method is preferred when creating a single obj)
+			
+			/* Logic Errors */
+			var pidgy = {name: null, type: null, trainer: null};
+			console.log(pidgy.name);
+			console.log(pidgy.location); // this property does not exist, returns undefined
+//			console.log(pidgy.location()); // this method does not exist, "Uncaught TypeError: pidgy.location is not a function"
+			
+            // create an object using the "new" keyword (Object Literal preferred when creating a single obj)
             var lickitung = new Object();
             lickitung.name = "Lickitung";
             lickitung.type = "normal";
             lickitung.trainer = "Jessie";
+			lickitung.lick = function() {
+				return "You're covered in slobber.";
+			}
 			console.log(lickitung.trainer);
+			console.log(lickitung.lick());
 
-			// Built in functions
+			/*---- Built-in Objects -----*/
             var birthdate = new Date();
 			birthdate.month = "July";
 			birthdate.day = 5;
@@ -34,7 +38,12 @@
 				console.log(birthdate.month + " " + birthdate.day + ", " + birthdate.year);
 			}
 			birthdate.displayBirthdate();
-
+			
+			var now = new Date(Date.UTC(16, 5, 17, 23, 0)); // Date.UTC method
+			console.log(now);
+			console.log(now.toGMTString());
+			console.log(now.getTime());
+			
 /*
             // Uncaught TypeError: Math is not a constructor
             var unknown = new Math();
@@ -47,10 +56,12 @@
 			
             // Create an object using an object constructor with properties and methods
             function Pokemon(name, type, trainer, caughtIn) {
-                this.name = name;
+				/*---- Properties ----*/
+				this.name = name;
                 this.type = type;
                 this.trainer = trainer;
                 this.caughtIn = caughtIn;
+				/*---- Methods ----*/
                 this.giveNickname = function(name) {
                     this.name = name;
                 }
@@ -58,22 +69,28 @@
                     return name + " " + name + "!!";
                 }
             }
-            var Blastoise = new Pokemon("Blastoise", "water", "Gary", "Pallet Town");
+			/*---- Instantiation ----*/
+            var Blastoise = new Pokemon("Blastoise", "water", "Gary", "Pallet Town"); // create a new instance of the object
             var Geodude = new Pokemon("Geodude", "rock", "Joe", "Pewter City");
-            
-            console.log(Blastoise.pokeCall());
-            console.log(Blastoise.pokeCall);
+            console.log(Blastoise.pokeCall()); // access the method
+            console.log(Blastoise.pokeCall); // returns the function definition
 			
-            // Inheritance
+			/* Logic Errors */
+			var Unknown = new Pokemon(null, null, null, null);
+			console.log(Unknown);
+			var Kangaskhan = new Pokemon("Kangaskhan");
+			console.log(Kangaskhan);
+			
+            /*---- Inheritance ----*/
 			function SecondGenPokemon(name, type, type2, trainer, caughtIn, baby) {
 				Pokemon.call(this, name, type, trainer, caughtIn);
 				this.type2 = type2;
 				this.baby = baby;
 			}
 			var Noctowl = new SecondGenPokemon("Noctowl", "psychic", "flying", "Ash", "Route 1", false);
+			
 			console.log(Noctowl.type2);
 //			console.log(Noctowl.pokecall());
-			
 			
 /*			
 			function thirdGenPokemon(name, type, type2, trainer, caughtIn, baby, ability, beauty) {
