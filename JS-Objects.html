@@ -30,6 +30,13 @@
 			console.log(lickitung.lick());
 
 			/*---- Built-in Objects -----*/
+			// Date Object
+			var now = new Date(Date.UTC(16, 5, 17, 23, 0)); // Date.UTC method
+			console.log(now);
+			console.log(now.toGMTString());
+			console.log(now.getTime());
+			
+			// Custom Date Object
             var birthdate = new Date();
 			birthdate.month = "July";
 			birthdate.day = 5;
@@ -38,11 +45,6 @@
 				console.log(birthdate.month + " " + birthdate.day + ", " + birthdate.year);
 			}
 			birthdate.displayBirthdate();
-			
-			var now = new Date(Date.UTC(16, 5, 17, 23, 0)); // Date.UTC method
-			console.log(now);
-			console.log(now.toGMTString());
-			console.log(now.getTime());
 			
 /*
             // Uncaught TypeError: Math is not a constructor
@@ -54,7 +56,7 @@
 			}
 */
 			
-            // Create an object using an object constructor with properties and methods
+            // Create a class using an object constructor with properties and methods
             function Pokemon(name, type, trainer, caughtIn) {
 				/*---- Properties ----*/
 				this.name = name;
@@ -69,43 +71,99 @@
                     return name + " " + name + "!!";
                 }
             }
+			
 			/*---- Instantiation ----*/
-            var Blastoise = new Pokemon("Blastoise", "water", "Gary", "Pallet Town"); // create a new instance of the object
+            var Blastoise = new Pokemon("Blastoise", "water", "Gary", "Pallet Town"); // create a new instance (object) of the class
             var Geodude = new Pokemon("Geodude", "rock", "Joe", "Pewter City");
             console.log(Blastoise.pokeCall()); // access the method
             console.log(Blastoise.pokeCall); // returns the function definition
 			
 			/* Logic Errors */
-			var Unknown = new Pokemon(null, null, null, null);
+			var Unknown = new Pokemon(null, null, null, null); // a new Pokemon object with null properties
 			console.log(Unknown);
-			var Kangaskhan = new Pokemon("Kangaskhan");
+			var Kangaskhan = new Pokemon("Kangaskhan"); // a new Pokemon object with only the first property assigned
 			console.log(Kangaskhan);
 			
             /*---- Inheritance ----*/
 			function SecondGenPokemon(name, type, type2, trainer, caughtIn, baby) {
-				Pokemon.call(this, name, type, trainer, caughtIn);
-				this.type2 = type2;
+				Pokemon.call(this, name, type, trainer, caughtIn); // uses the "call" method to inherit the Pokemon class
+				this.type2 = type2; // create 2 new properties
 				this.baby = baby;
 			}
-			var Noctowl = new SecondGenPokemon("Noctowl", "psychic", "flying", "Ash", "Route 1", false);
 			
-			console.log(Noctowl.type2);
-//			console.log(Noctowl.pokecall());
+			var Noctowl = new SecondGenPokemon("Noctowl", "psychic", "flying", "Ash", "Route 1", false); // a new Pokemon object
+			console.log(Noctowl.trainer); // access a property from the inherited class
+			console.log(Noctowl.type2); // access a property from the inheriting class
+			console.log(Noctowl.pokeCall()); // access the "pokeCall" method from the inherited class
 			
-/*			
-			function thirdGenPokemon(name, type, type2, trainer, caughtIn, baby, ability, beauty) {
-                this.inheritFrom = secondGenerationPokemon;
-				this.inheritFrom();
+			// Multi Level Inheritance
+			// ThirdGenPokemon inherits SecondGenPokemon (which inherited Pokemon) and also inherits Stats 
+				// Gets all properties and methods from inherited classes
+			function Stats(hp, attack, defense, specialAttack, specialDefense, speed) {
+				this.hp = hp;
+				this.attack = attack;
+				this.defense = defense;
+				this.specialAttack = specialAttack;
+				this.specialDefense = specialDefense;
+				this.speed = speed;
+			}
+			
+			function ThirdGenPokemon(name, type, type2, trainer, caughtIn, baby, hp, attack, defense, specialAttack, specialDefense, speed, ability, beauty) {
+                SecondGenPokemon.call(this, name, type2, trainer, caughtIn, baby); 
+				Stats.call(this, hp, attack, defense, specialAttack, specialDefense, speed); 
 				this.ability = ability;
 				this.beauty = beauty;
 				this.eatPKBlock = function(increase) {
 					beauty += increase;
+					return beauty;
 				}
             }
-			var sharpedo = new thirdGenPokemon("Sharpedo", "water", "dark", "Team Aqua", "Route 123", false, "Sharp Skin", 1);
-			console.log(sharpedo.beauty);
-			console.log(sharpedo.eatPKBlock(3);
-*/			
+			
+			var Sharpedo = new ThirdGenPokemon("Sharpedo", "water", "dark", "Team Aqua", "Route 123", false, 53, 13, 14, 10, 9, 14, "Sharp Skin", 1);
+			console.log(Sharpedo.beauty); // a property from ThirdGenPokemon class
+			console.log(Sharpedo.eatPKBlock(3)); // a method from ThirdGenPokemon class
+			console.log(Sharpedo.pokeCall()); // a method from Pokemon class
+			Sharpedo.hp = 50; // a property from Stats class <---------------------------------- is this the equivalent of a setter?
+			console.log(Sharpedo.hp);
+			
+			/* Logic Error */
+			// Circular Inheritance
+			// Class C (Wearable) will inherit Class B (Hat) which will inherit Class A (Clothing) which will inherit Class C (Wearable).
+			/* Class A <----------
+					\ 			  |
+					Class B		  |
+						\         |
+						Class C --    */
+			
+			function Clothing(type, color) { 
+				Wearable.call();
+				this.type = type;
+				this.color = color;
+				this.wearIt = function() {
+					return "You put on your " + type;
+				}
+			}
+			
+			function Hat(type, color) {
+				Clothing.call(this, type, color);
+				// this.hatType = hatType;
+			}
+			
+			function Wearable(type, color) {
+				Hat.call(this, type, color); 
+				this.wearable = function() {
+					if(this.Wearable instanceof Clothing) {
+						console.log("This clothing is wearable.");
+					}
+				}
+			}
+			
+			// Uncaught Range Error: maximum call stack size succeeded
+			var Sombrero = new Hat("sombrero", "tan");
+			console.log(Sombrero.type);
+			console.log(Sombrero.wearable());
+			console.log(Sombrero.wearIt());
+			
         </script>
     </head>
     <body>

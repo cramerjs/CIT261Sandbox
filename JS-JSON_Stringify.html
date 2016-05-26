@@ -20,47 +20,62 @@
 			];
 			
 			console.log(party[0].name); // one way to get a value from an Array of Objects
-			console.log(party[0]["name"]); // another way to get a value from an Array of Objects
+			console.log(party[0]["name"]); // another way to get a value
 			
-			party[0].name = "Psyduck";
-			console.log(party[0].name);
-			party[0]["type"] = "water";
+			party[0].name = "Psyduck"; // one way to edit a value in an Array of Objects
+			console.log(party[0].name); 
+			party[0]["type"] = "water"; // another way to edit a value
 			console.log(party[0]["type"]);
 			
-			// party.shift({"name":"Electabuzz","type":"electric","trainer":"Joe"});
+			/* Logic Error */
+			party.shift({"name":"Electabuzz","type":"electric","trainer":"Joe"}); // erases the first object in the array
 			console.log(party);
 			
-			// Use JSON parser to convert JSON text to JS object
+			// Use JSON parser to convert text to JS object
 			var text = '{"party2":['+
 				'{"name":"Ponyta","type":"fire","trainer":"Joe"},'+
 				'{"name":"Poliwag","type":"water","trainer":"Joe"},'+
 				'{"name":"Abra","type":"psychic","trainer":"Joe"} ]}';
 			
+			console.log(text);
 			var party2 = JSON.parse(text); // parsed JS object is stored in variable
 			console.log(party2);
 			
-			// HTTP Request Example
-			var xmlhttp = new XMLHttpRequest();
-			var url = "party3.txt";
-
-			xmlhttp.onreadystatechange = function() {
-			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-				var myArray = JSON.parse(xmlhttp.responseText);
-				jsonArrayToHTML(myArray);
-				}
-			};
-
-			xmlhttp.open("GET", url, true);
-			xmlhttp.send();
+			/*---- Stringify ----*/
+			// Use stringification to convert JSON object back to text
+			var party3 = JSON.stringify(party2); // JS object is stringified and stored in variable
+			console.log(party3);
 			
-			function jsonArrayToHTML(array) {
-				var out = "";
-				var i;
-				for(i = 0; i < array.length; i++) {
-					out += '<a href="' + array[i].url + '">' + array[i].display + '</a><br>';
-				}
-				document.getElementById("id01").innerHTML = out;
-			}
+			// Create a new class
+			function Pokemon(name, type, trainer, caughtIn) {
+				this.name = name;
+                this.type = type;
+                this.trainer = trainer;
+                this.caughtIn = caughtIn;
+                this.giveNickname = function(name) {
+                    this.name = name;
+                }
+                this.pokeCall = function() {
+                    return name + " " + name + "!!";
+                }
+            }
+			
+            var Geodude = new Pokemon("Geodude", "rock", "Joe", "Pewter City"); // create a new object
+			var geodudeString = JSON.stringify(Geodude); // stringify the object
+			console.log(geodudeString);
+			
+			/* Syntax Errors */
+			// var empty1 = JSON.parse(); // Uncaught SyntaxError: Unexpected token u in JSON at position 0
+			// var empty2 = JSON.parse(""); // Uncaught SyntaxError: Unexpected end of JSON input
+			
+			/* Logic Errors */
+			var empty3 = JSON.stringify(); // undefined
+			var empty4 = JSON.stringify(""); // ""
+			var null1 = JSON.parse(null); // null
+			var null2 = JSON.stringify(null); // null
+			var json1 = JSON.parse(15); // 15
+			var json2 = JSON.stringify("Go Blaziken, I choose you!"); // "Go Blaziken, I choose you!"
+			console.log(json2);
 			
         </script>
     </head>

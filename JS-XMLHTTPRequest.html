@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<!-- Using XMLHTTPRequest to Consume a JSON Web Service -->
+<html>
+    <head>
+        <title>JS-XML HTTP Request</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript">
+		
+			/*---- Using XMLHTTPRequest to Consume a JSON Web Service ----*/
+			// creates a JSON Object
+			var Growlithe = {"name":"Growlithe","type":"fire","trainer":"Joe"}; 
+			console.log(Growlithe.name);
+			
+			// creates an Array of Objects
+			var party = [
+				{"name":"Ponyta","type":"fire","trainer":"Joe"},
+				{"name":"Poliwag","type":"water","trainer":"Joe"},
+				{"name":"Abra","type":"psychic","trainer":"Joe"}
+			];
+			
+			console.log(party[0].name); // one way to get a value from an Array of Objects
+			console.log(party[0]["name"]); // another way to get a value
+			
+			party[0].name = "Psyduck"; // one way to edit a value in an Array of Objects
+			console.log(party[0].name); 
+			party[0]["type"] = "water"; // another way to edit a value
+			console.log(party[0]["type"]);
+			
+			/* Logic Error */
+			party.shift({"name":"Electabuzz","type":"electric","trainer":"Joe"}); // erases the first object in the array
+			console.log(party);
+			
+			// Use JSON parser to convert JSON text to JS object
+			var text = '{"party2":['+
+				'{"name":"Ponyta","type":"fire","trainer":"Joe"},'+
+				'{"name":"Poliwag","type":"water","trainer":"Joe"},'+
+				'{"name":"Abra","type":"psychic","trainer":"Joe"} ]}';
+			
+			var party2 = JSON.parse(text); // parsed JS object is stored in variable
+			console.log(party2);
+			
+			
+			
+			
+			
+			// HTTP Request Example
+/*			var xmlhttp = new XMLHttpRequest();
+			var url = "party3.txt";
+
+			xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				var myArray = JSON.parse(xmlhttp.responseText);
+				jsonArrayToHTML(myArray);
+				}
+			};
+
+			xmlhttp.open("GET", url, true);
+			xmlhttp.send();
+			
+			function jsonArrayToHTML(array) {
+				var out = "";
+				var i;
+				for(i = 0; i < array.length; i++) {
+					out += '<a href="' + array[i].url + '">' + array[i].display + '</a><br>';
+				}
+				document.getElementById("id01").innerHTML = out;
+			}
+*/			
+        </script>
+    </head>
+    <body>
+        <h1>Using XMLHTTPRequest to Consume a JSON Web Service</h1>
+		<h3>See Browser Console</h3>
+    </body>
+</html>
