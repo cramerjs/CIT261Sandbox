@@ -7,70 +7,74 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script type="text/javascript">
 		
-			/*---- Using XMLHTTPRequest to Consume a JSON Web Service ----*/
-			// creates a JSON Object
-			var Growlithe = {"name":"Growlithe","type":"fire","trainer":"Joe"}; 
-			console.log(Growlithe.name);
+			/*---- XML HTTP Request ----*/
+			var xhttp = new XMLHttpRequest(); // creates a new XMLHttpRequest object
+			var url = "http://www.omdbapi.com/?t=The+Prestige&y=&plot=short&r=json"; // The Prestige
+			// var url = "http://www.omdbapi.com/?t=Star+Wars%3A+Episode+IV+-+A+New+Hope&y=&plot=short&r=json"; // Star Wars Episode 4
 			
-			// creates an Array of Objects
-			var party = [
-				{"name":"Ponyta","type":"fire","trainer":"Joe"},
-				{"name":"Poliwag","type":"water","trainer":"Joe"},
-				{"name":"Abra","type":"psychic","trainer":"Joe"}
-			];
-			
-			console.log(party[0].name); // one way to get a value from an Array of Objects
-			console.log(party[0]["name"]); // another way to get a value
-			
-			party[0].name = "Psyduck"; // one way to edit a value in an Array of Objects
-			console.log(party[0].name); 
-			party[0]["type"] = "water"; // another way to edit a value
-			console.log(party[0]["type"]);
-			
-			/* Logic Error */
-			party.shift({"name":"Electabuzz","type":"electric","trainer":"Joe"}); // erases the first object in the array
-			console.log(party);
-			
-			// Use JSON parser to convert JSON text to JS object
-			var text = '{"party2":['+
-				'{"name":"Ponyta","type":"fire","trainer":"Joe"},'+
-				'{"name":"Poliwag","type":"water","trainer":"Joe"},'+
-				'{"name":"Abra","type":"psychic","trainer":"Joe"} ]}';
-			
-			var party2 = JSON.parse(text); // parsed JS object is stored in variable
-			console.log(party2);
-			
-			
-			
-			
-			
-			// HTTP Request Example
-/*			var xmlhttp = new XMLHttpRequest();
-			var url = "party3.txt";
-
-			xmlhttp.onreadystatechange = function() {
-			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-				var myArray = JSON.parse(xmlhttp.responseText);
-				jsonArrayToHTML(myArray);
+			// function to be executed when the readyState changes
+			xhttp.onreadystatechange = function() {
+				// readyState (0-4) / status (200:OK, 404: Page not found)
+				if (xhttp.readyState == 4 && xhttp.status == 200) { // 
+					// when the response it ready this code will execute
+					console.log(xhttp.responseText);
+					var myArray = JSON.parse(xhttp.responseText); // parses the json into an array
+					console.log(myArray);
+					console.log(myArray.Poster); // gets just the Poster from the array
+					jsonArrayToHtml(myArray); // calls the function below to output the array as HTML
 				}
 			};
 
-			xmlhttp.open("GET", url, true);
-			xmlhttp.send();
+			xhttp.open("GET", url, true); // open(method, url, async) specifies the type of request
+			xhttp.send(); // sends a GET request to the server
 			
-			function jsonArrayToHTML(array) {
-				var out = "";
-				var i;
-				for(i = 0; i < array.length; i++) {
-					out += '<a href="' + array[i].url + '">' + array[i].display + '</a><br>';
-				}
-				document.getElementById("id01").innerHTML = out;
+			// formats the array as HTML to be displayed in a readable format
+			function jsonArrayToHtml(array) {
+				var displayDiv = document.getElementById("id01");
+				var posterImg = document.createElement("img");
+				posterImg.src = array.Poster;
+				displayDiv.appendChild(posterImg);
 			}
-*/			
+			
+			/* Syntax Errors */
+/*			var url = ""; // XMLHTTPRequest cannot load file <file>. Cross origin requests are only supported for protocol schemes:...
+			var url = 0; 
+			var url = null;
+			
+			/* Logic Errors */
+			// to test logic errors, comment out the correct lines
+/*			xhttp.open("POST", url, true); // works, but POST mainly used for sending data from client to server
+			xhttp.open("GET", url, false); // "Synchronous XMLHttpRequest on the main thread is deprecated because of its detrimental effects to the end user's experience."
+			xhttp.send(""); // no effect
+			xhttp.send(0); // no effect
+			
+			// invalid readyState values: 0-2 produce no output, 3-4 produce output 
+			xhttp.onreadystatechange = function() {
+				if (xhttp.readyState == 0 && xhttp.status == 200) {
+					console.log(xhttp.responseText);
+					var myArray = JSON.parse(xhttp.responseText);
+					console.log(myArray);
+					console.log(myArray.Poster); 
+					jsonArrayToHtml(myArray);
+				}
+			};
+			
+			// invalid status values: 404 produces no output
+			xhttp.onreadystatechange = function() {
+				if (xhttp.readyState == 4 && xhttp.status == 404) { 
+					console.log(xhttp.responseText);
+					var myArray = JSON.parse(xhttp.responseText); // parses the json into an array
+					console.log(myArray);
+					console.log(myArray.Poster); // gets just the Poster from the array
+					jsonArrayToHtml(myArray); // calls the function below to 
+				}
+			};
+*/		
         </script>
     </head>
     <body>
         <h1>Using XMLHTTPRequest to Consume a JSON Web Service</h1>
 		<h3>See Browser Console</h3>
+		<div id="id01"></div>
     </body>
 </html>
