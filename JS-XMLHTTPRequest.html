@@ -18,7 +18,7 @@
 				if (xhttp.readyState == 4 && xhttp.status == 200) { // 
 					// when the response it ready this code will execute
 					console.log(xhttp.responseText);
-					var myArray = JSON.parse(xhttp.responseText); // parses the json into an array
+					var myArray = JSON.parse(xhttp.responseText); // parses the string into an array/json object
 					console.log(myArray);
 					console.log(myArray.Poster); // gets just the Poster from the array
 					jsonArrayToHtml(myArray); // calls the function below to output the array as HTML

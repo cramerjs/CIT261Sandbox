@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!-- DOM (Document Object Model) Manipulation Using createElement, appendChild, insertBefore, removeChild, etc. -->
+<html>
+    <head>
+        <title>JS-DOM Manipulation</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript">
+		
+			/*---- Navigating the DOM Tree----*/
+/*			console.log(document);
+			console.log(document.firstChild);
+			console.log(document.lastChild);
+			console.log(document.childNodes[2].childNodes[0].childNodes[1]);
+			
+			// loop through all childNodes at Level 1
+			for(i = 0; i < document.childNodes.length; i++) {
+				console.log(document.childNodes[i]);
+			}
+*/			
+			// loop through all childNodes at Level 2
+//			for(i = 0; i < document.childNodes.length; i++) {
+//				for(j = 0; j < document.childNodes.childNodes.length; j++) {
+//					console.log(document.childNodes[i].childNodes[i]);
+//				}
+//			}
+			
+			/*---- Getting an Element ----*/
+			// var x = document.getElementById('hereweare');
+			
+			/*---- Changing a Node ----*/
+			// document.getElementById('hereweare').firstChild.nodeValue='Now it has changed';
+			
+			/*---- Creating and Removing Nodes ----*/
+			var x = document.createElement('hr');
+			document.getElementById('inserthrhere').appendChild(x);
+		
+        </script>
+    </head>
+    <body>
+        <h1>DOM (Document Object Model) Manipulation</h1>
+		<h3>See Browser Console</h3>
+		<p align="right">This is a <b id="hereweare">paragraph</b></p>
+		<span id="inserthrhere">some stuff</span>
+    </body>
+</html>

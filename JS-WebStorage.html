@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<!-- Web Storage -->
+<html>
+    <head>
+        <title>JS-Web Storage</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript">
+		
+			/*---- Session Storage ----*/
+			sessionStorage.setItem('myKey','myValue');
+			var myVar = sessionStorage.getItem('myKey');
+			console.log(myVar);
+			
+			/*---- Local Storage ----*/
+			localStorage.setItem('myKey','myValue');
+			var myVar2 = localStorage.getItem('myKey');
+			console.log(myVar2);
+			
+			/*---- Storing & Retrieving Simple Data ----*/
+			var sessionID = Math.floor((Math.random() * 10000000000000000000) + 1);
+			localStorage.setItem('sessionID',JSON.stringify(sessionID));
+			console.log(localStorage.getItem('sessionID'));
+			
+			/*---- Storing & Retrieving Arrays ----*/
+			var anArray = [0,1,2,3,4,5,6,7,8,9];
+			localStorage.setItem('anArray',JSON.stringify(anArray));
+			console.log(localStorage.getItem('anArray'));
+			
+			/*---- Storing & Retrieving Associative Arrays ----*/
+			var anAssocArray = {"Title":"Pages","Jungle Book":"180","The Count of Monte Christo":"650","Anthem":"100"};
+			localStorage.setItem('anAssocArray',JSON.stringify(anAssocArray));
+			console.log(localStorage.getItem('anAssocArray'));
+			
+			/*---- Storing & Retrieving Objects ----*/
+            function Pokemon(name, type, trainer, caughtIn) {
+				this.name = name;
+                this.type = type;
+                this.trainer = trainer;
+                this.caughtIn = caughtIn;
+                this.giveNickname = function(name) {
+                    this.name = name;
+                }
+                this.pokeCall = function() {
+                    return name + " " + name + "!!";
+                }
+            }
+			
+            var Blastoise = new Pokemon("Blastoise", "water", "Gary", "Pallet Town"); // create a new instance (object) of the class
+
+			localStorage.setItem('Blastoise',JSON.stringify(Blastoise));
+			console.log(localStorage.getItem('Blastoise'));
+			
+			/*---- More experimentation ----*/
+			localStorage.Geodude = JSON.stringify(new Pokemon("Geodude", "rock", "Joe", "Pewter City"));
+			console.log(localStorage.Geodude); // can access local storage using dot notation
+			console.log(JSON.parse(localStorage.Geodude)); // parse the stored string back into JSON
+			console.log(JSON.parse(localStorage.getItem('Geodude'))); 
+			
+			localStorage.setItem(2,JSON.stringify(Blastoise)); // key can be a number
+			var numberedKey = localStorage.getItem(2); 
+			console.log(JSON.parse(localStorage.getItem(2)));
+			
+			// removing items
+			localStorage.removeItem('Geodude');
+			
+			window.addEventListener('storage', function(event) {
+				console.log('The value for ' + event.key + ' was changed from' + event.oldValue + ' to ' + event.newValue);
+			}, false);
+			
+			console.log(window.sessionStorage);
+			console.log(window.localStorage);
+			
+			// Check for web storage capability
+			if(typeof(Storage) !== "undefined") {
+				// Code for localStorage/sessionStorage
+			} else {
+				// "Sorry! No Web Storage support"
+			}
+			
+			/*---- Nasty Paths ----*/
+			// using an empty string as the key raises no syntax error
+			localStorage.setItem('','aValue');
+			var emptyKeyVar = localStorage.getItem('');
+			console.log(localStorage.getItem(''));
+			
+			// using null as the key raises no syntax error
+			localStorage.setItem(null,'anotherValue');
+			var nullKeyVar = localStorage.getItem(null);
+			console.log(localStorage.getItem(null));
+			
+			// automatically treats the value like an undefined variable
+			localStorage.setItem(undefined,undefined); 
+			var emptyPair = localStorage.getItem(undefined);
+			console.log(localStorage.getItem(undefined));
+			
+			// value must be a string
+			localStorage.setItem(2,Blastoise); 
+			var numberedKey = localStorage.getItem(2);
+			// console.log(JSON.parse(localStorage.getItem(2))); // Unexpected token o in JSON at postion 1
+			// console.log(JSON.parse(localStorage.numberedKey)); // Unexpected token u in JSON at position 2
+			
+        </script>
+    </head>
+    <body>
+        <h1>Web Storage</h1>
+		<h3>See Browser Console</h3>
+		<div id="id01"></div>
+    </body>
+</html>
