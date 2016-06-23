@@ -18,6 +18,7 @@
 			console.log(myVar2);
 			
 			/*---- Storing & Retrieving Simple Data ----*/
+			// bad example of creating a session ID, should be unique
 			var sessionID = Math.floor((Math.random() * 10000000000000000000) + 1);
 			localStorage.setItem('sessionID',JSON.stringify(sessionID));
 			console.log(localStorage.getItem('sessionID'));

@@ -8,7 +8,7 @@
         <script type="text/javascript">
 		
 			/*---- Navigating the DOM Tree----*/
-/*			console.log(document);
+			console.log(document);
 			console.log(document.firstChild);
 			console.log(document.lastChild);
 			console.log(document.childNodes[2].childNodes[0].childNodes[1]);
@@ -17,7 +17,7 @@
 			for(i = 0; i < document.childNodes.length; i++) {
 				console.log(document.childNodes[i]);
 			}
-*/			
+			
 			// loop through all childNodes at Level 2
 //			for(i = 0; i < document.childNodes.length; i++) {
 //				for(j = 0; j < document.childNodes.childNodes.length; j++) {
@@ -26,15 +26,17 @@
 //			}
 			
 			/*---- Getting an Element ----*/
-			// var x = document.getElementById('hereweare');
+			var x = document.getElementById('hereweare') = "bold paragraph";
 			
 			/*---- Changing a Node ----*/
-			// document.getElementById('hereweare').firstChild.nodeValue='Now it has changed';
+			document.getElementById('hereweare').firstChild.nodeValue='Now it has changed';
 			
 			/*---- Creating and Removing Nodes ----*/
 			var x = document.createElement('hr');
 			document.getElementById('inserthrhere').appendChild(x);
 		
+			// appendChild to the same node twice
+			
         </script>
     </head>
     <body>

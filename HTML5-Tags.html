@@ -19,10 +19,9 @@
         <h1>HTML5-Tags (Video, Audio, Canvas, etc)</h1>
 		
 		<!-- //////// VIDEO \\\\\\\\ -->
-		
 		<h3>Video</h3><!-- video with controls, plays automatically on load, loops, and starts muted -->
 		<video width="900px" height="600px" controls autoplay loop muted>
-			<source src="2011-06-012-moments-that-matter-most-360p-eng.mp4" type="video/mp4">
+			<source src="media/2011-06-012-moments-that-matter-most-360p-eng.mp4" type="video/mp4">
 		Your browser cannot play this video. Try updating your browser.
 		</video>
 		
@@ -30,7 +29,7 @@
 		
 		<h3>Video with No Size Property</h3>
 		<video controls autoplay loop muted>
-			<source src="2011-06-012-moments-that-matter-most-360p-eng.mp4" type="video/mp4">
+			<source src="media/2011-06-012-moments-that-matter-most-360p-eng.mp4" type="video/mp4">
 		Your browser cannot play this video. Try updating your browser.
 		</video>
 		
@@ -38,7 +37,7 @@
 		
 		<h3>Video Tag with Missing Type Property</h3>
 		<video controls autoplay loop muted>
-			<source src="2011-06-012-moments-that-matter-most-360p-eng.mp4">
+			<source src="media/2011-06-012-moments-that-matter-most-360p-eng.mp4">
 		Your browser cannot play this video. Try updating your browser.
 		</video>
 		
@@ -46,7 +45,7 @@
 		
 		<h3>Video Tag with Missing File Extension</h3>
 		<video controls autoplay loop muted>
-			<source src="2011-06-012-moments-that-matter-most-360p-eng" type="video/mp4">
+			<source src="media/2011-06-012-moments-that-matter-most-360p-eng" type="video/mp4">
 		Your browser cannot play this video. Try updating your browser.
 		</video>
 		
@@ -63,18 +62,47 @@
 		<h3>Video Tag with No Source Tag or Properties</h3>
 		<video>Video with no internal elements or properties.</video>
 		
+		<br>
+		
+		<h3>Video with Audio as its Source</h3>
+		<video controls autoplay loop muted>
+			<source src="media/07 Lazy Eye.mp3"><!-- Plays the audio track with no video. -->
+		Your browser cannot play this video. Try updating your browser.
+		</video>
+		
+		<br>
+		
+		<h3>Video with Text File as its Source</h3>
+		<video controls autoplay loop muted>
+			<source src="media/media.txt"><!-- Source is not a playable video file. / Type not supported. -->
+		Your browser cannot play this video. Try updating your browser.
+		</video>
+		
 		<!-- //////// AUDIO \\\\\\\\ -->
 		<h3>Audio with Controls</h3>
 		<audio controls autoplay loop muted>
-			<source src="14 Shot At the Night.m4a" type="audio/m4a"><!-- Song does not play because .m4a is not supported. -->
-			<source src="07 Lazy Eye.mp3" type="audio/mp3">
+			<source src="media/14 Shot At the Night.m4a" type="audio/m4a"><!-- Song does not play because .m4a is not supported. -->
+			<source src="media/07 Lazy Eye.mp3" type="audio/mp3">
 		Your browser cannot play this audio. Try updating your browser.
 		</audio>
 		
+		<!-- Nasty Paths -->
 		<h3>Background Audio (no controls, plays automatically and loops... but probably not a great idea)</h3>
-		<!--<audio autoplay loop>-->
-			<source src="14 Shot At the Night.mp3" type="audio/mp3"><!-- Song does not play because the file is not an .mp3 and does not convert automatically -->
-			<source src="07 Lazy Eye.mp3" type="audio/mp3">
+		<!--<audio autoplay loop>--><!-- Commented out the audio so that it doesn't drive me crazy. -->
+			<source src="media/14 Shot At the Night.mp3" type="audio/mp3"><!-- Song does not play because the file is not an .mp3 and does not convert automatically -->
+			<source src="media/07 Lazy Eye.mp3" type="audio/mp3">
+		Your browser cannot play this audio. Try updating your browser.
+		</audio>
+		
+		<h3>Audio with a Video as its Source</h3>
+		<audio controls autoplay loop muted>
+			<source src="media/2011-06-012-moments-that-matter-most-360p-eng.mp4"><!-- Plays only the sound from the video. -->
+		Your browser cannot play this audio. Try updating your browser.
+		</audio>
+		
+		<h3>Audio with a Text File as its Source</h3>
+		<audio controls autoplay loop muted>
+			<source src="media/media.txt"><!-- Source is not a playable audio file. / Type not supported. -->
 		Your browser cannot play this audio. Try updating your browser.
 		</audio>
 		
@@ -134,6 +162,5 @@
 			ctx7.fill();
 			
         </script>
-		
     </body>
 </html>
