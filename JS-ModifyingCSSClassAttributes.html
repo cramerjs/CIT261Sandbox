@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<!-- JS-Modifying CSS Class Attributes -->
+<html>
+    <head>
+        <title>JS-Modifying CSS Class Attributes</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript">
+			/*---- Modifying CSS ----*/
+			var enlargeThumbnail = function() {
+				var img1 = document.getElementById("img1");
+				img1.style.height = "200px";
+			}
+			
+			
+			/*---- Modifying CSS by Class Name ----*/
+			var changeBorderColor = function() {
+				var elementsWithBorders = document.getElementsByClassName("hasBorder");
+				for(i = 0; i <= elementsWithBorders.length; i++) {
+					if(elementsWithBorders[i] === undefined) {
+						break;
+					} else {
+						elementsWithBorders[i].style.borderColor = "green";
+					}
+				}
+			}
+			
+			
+			/*---- Modifying CSS by Tag Name ----*/
+			var changeTableDataCase = function() {
+				var tableData = document.getElementsByTagName("td");
+				for(var i = 0; i <= tableData.length; i++) {
+					if(tableData[i] === undefined) {
+						break;
+					} else {
+						if(tableData[i].style.textTransform == "lowercase") {
+							tableData[i].style.textTransform = "uppercase";
+						} else {
+							tableData[i].style.textTransform = "lowercase";
+						}
+					}
+				}
+			}
+			
+			
+			/*---- Modifying CSS with EventListener ----*/
+			function shrinkThumbnail() {
+				var img1 = document.getElementById("img1");
+				var button2 = document.getElementById("button2");
+				document.getElementById("button2").addEventListener("click", function(){img1.style.height="100px"}, false);
+			}
+			
+			
+			/*---- Nasty Paths ----*/
+			var changeBorderColor2 = function() {
+				var elementsWithBorders = document.getElementsByClassName("hasBorder");
+				for(i = 0; i <= elementsWithBorders.length; i++) {
+					// elementsWithBorders[i].style.border-color = "green"; // Incorrect JS Syntax .border-color -> .borderColor
+				}
+			}
+			
+			
+			function nastyFunction() {
+				var nasty;
+				// nasty.style.fontSize = ".5em"; // "Cannot read property 'style' of undefined."
+				var nastyElements = document.getElementsByClassName("hasBorder");
+				// all cases below throw no errors
+				nastyElements[0].style.fontSize = .5; // no effect
+				nastyElements[1].style.border = ""; // no effect
+				nastyElements[2].style.border = null; // no effect
+				nastyElements[3].style.border = nasty; // no effect
+				nastyElements[4].style.border = ".5em"; // bad argument, removes border
+			}
+			
+        </script>
+		<style>
+		
+			.hasBorder {
+				border-style:solid;
+				border-color:black;
+			}
+			
+		</style>
+    </head>
+    <body>
+        <h1>JS-Modifying CSS Class Attributes</h1>
+		<h3>See Browser Console</h3>
+		<div class="hasBorder">
+			<img src="media/stormtroopocat.png" id="img1" class="hasBorder" style="height:100px;">
+			<button type="button" id="button1" class="hasBorder" onclick="enlargeThumbnail()">Enlarge Thumbnail</button>
+			<button type="button" id="button2" onclick="shrinkThumbnail()">Shrink Thumbnail</button>
+			<button type="button" class="hasBorder" onclick="changeBorderColor()">Change Border Color</button>
+			<button type="button" onclick="changeTableDataCase()">Change Case</button>
+			<button type="button" onclick="nastyFunction()">Nasty Paths</button>
+		</div>
+		<div class="hasBorder">
+			<table>
+				<tr>
+					<td>#1</td>
+					<td>Joe</td>
+				</tr>
+				<tr>
+					<td>#2</td>
+					<td>Bob</td>
+				</tr>
+			</table>
+		</div>
+    </body>
+</html>

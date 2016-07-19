@@ -25,24 +25,110 @@
 //				}
 //			}
 			
-			/*---- Getting an Element ----*/
-			var x = document.getElementById('hereweare') = "bold paragraph";
+			/*---- Getting and Changing an Element ----*/
+			var changeP1 = function() {
+				var paragraph1 = document.getElementById("p1");
+				paragraph1.innerHTML = "This is the first paragraph with some new content.";
+			}
+			
+			var changeImgSrc = function() {
+				document.getElementById("img1").src = "media/topguntocat.png";
+			}
 			
 			/*---- Changing a Node ----*/
-			document.getElementById('hereweare').firstChild.nodeValue='Now it has changed';
+			// navigate to nodeValue of paragraph and change the string
+			var changeP = function() {
+				var allPs = document.getElementsByTagName("p");
+				console.log(allPs[0].firstChild.nodeValue);
+				allPs[0].firstChild.nodeValue = "new value";
+			}
+			
+			var changeTitle = function() {
+				console.log(document.head.childNodes[0]);
+				var title = document.head.childNodes[0].nextSibling.childNodes[0];
+				console.log(title);
+				title.nodeValue = "newTitle";
+			}
 			
 			/*---- Creating and Removing Nodes ----*/
-			var x = document.createElement('hr');
-			document.getElementById('inserthrhere').appendChild(x);
-		
-			// appendChild to the same node twice
+			var addImg = function() {
+				var newImg = document.createElement("img");
+				newImg.src = "media/daftpunktocat-thomas.gif";
+				newImg.style.width = "300px";
+				document.body.appendChild(newImg);
+			}
 			
+			var removeImgById = function() {
+				var img1 = document.getElementById("img1");
+				document.body.removeChild(img1);
+			}
+		
+			var removeLastImg = function() {
+				document.body.removeChild(document.body.lastChild);
+			}
+		
+			/*---- Nasty Paths ----*/
+			// getElementByTagName returns the nodes as an array
+			var changeAllPsNasty = function() {
+				var allPs = document.getElementsByClassName("pBody");
+				// must access nodes by array index
+				allPs.innerHTML = "some content";
+			}
+			
+			// Last node in allPs is undefined and immutable
+			var changeAllPsNasty2 = function() {
+				var allPs = document.getElementsByTagName("p");
+				for(i = 0; i <= allPs.length; i++) {
+					console.log(allPs[i].nodeValue);
+				}
+			}
+			
+			// incorrect path to nodeValue of Title in DOM tree
+			var changeTitleNasty = function() {
+				var title = document.html.head.title.textNode.nodeValue;
+				title.innerHTML = "newTitle";
+			}
+			
+			// appends a child to the same node twice
+			var addSpanNasty = function() {
+				var newSpan = document.createElement("span");
+				newSpan.innerHTML = "Some text in a span.";
+				document.body.appendChild(newSpan);
+				document.body.appendChild(newSpan);
+			}
+			
+			// successfully creates the tag, but the tag is not a valid type
+			var createTagNasty = function() {
+				var newNastyTag = document.createElement("z");
+				newNastyTag.innerHTML = "ZEDD";
+				document.body.appendChild(newNastyTag);
+			}
+				
         </script>
     </head>
     <body>
         <h1>DOM (Document Object Model) Manipulation</h1>
 		<h3>See Browser Console</h3>
-		<p align="right">This is a <b id="hereweare">paragraph</b></p>
-		<span id="inserthrhere">some stuff</span>
+		<h4>Happy Paths</h4>
+		<button type="button" onclick="changeP1()">Change P1</button> 
+		<button type="button" onclick="changeImgSrc()">Change Image</button> 
+		<button type="button" onclick="addImg()">Add Image</button> 
+		<button type="button" onclick="removeImgById()">Remove Image By Id</button> 
+		<button type="button" onclick="removeLastImg()">Remove Last Image</button> 
+		
+		<h4>Nasty Paths</h4>
+		<button type="button" onclick="changeP()">Change P</button> 
+		<button type="button" onclick="changeTitle()">Change Title</button> 
+		<button type="button" onclick="addSpanNasty()">Add a Span</button>
+		<button type="button" onclick="createTagNasty()">Create Nasty Tag</button>
+		<button type="button" onclick="document.body.appendChild()">Empty AppendChild</button><!-- Uncaught TypeError -->
+		<button type="button" onclick="document.body.removeChild()">Empty RemoveChild</button><!-- Uncaught TypeError -->
+		<button type="button" onclick="document.body.appendChild(null)">Null AppendChild</button><!-- Uncaught TypeError -->
+		<button type="button" onclick="document.body.removeChild(null)">Null RemoveChild</button><!-- Uncaught TypeError -->
+		<button type="button" onclick="document.createElement(null)">Null CreateElement</button><!-- Uncaught TypeError -->
+		
+		<p id="p1" class="pBody">This is the first paragraph.</p>
+		<p class="pBody">This is a second paragraph.</p>
+		<img id="img1" style="width:300px"src="media/stormtroopocat.png">
     </body>
 </html>

@@ -5,37 +5,135 @@
         <title>JS-Events</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<style type="text/css">
+			/* prevents all pointer-events (title display on hover, enlargeThumbnail function)
+			/* #img1 {
+				pointer-events: none;
+			} */
+			
+			div {
+				width: 200px;
+				height: 200px;
+				background-color: grey;
+				overflow-x: scroll;
+				overflow-y: scroll;
+				text-align: center;
+			}
+			
+			div > entry {
+				touch-action: pan-x;
+			}
+			
+			#touchableDiv {
+				background-color: blue;
+			}
+			
+			#touchableDiv2 {
+				
+			}
+			
+		</style>
         <script type="text/javascript">
 		
 			/*---- "onchange" ----*/
-			
-			/*---- "onclick" ----*/
-			function enlargeThumbnail() {
-				
+			var chooseDaft = function() {
+				var choice = document.getElementById("guyRadio").checked;
+				console.log(choice);
+				if(choice == true) {
+					var newImg = document.createElement("img");
+					newImg.src = "media/daftpunktocat-guy.gif";
+					newImg.style.width = "300px";
+					document.body.appendChild(newImg);					
+				} else {
+					var newImg = document.createElement("img");
+					newImg.src = "media/daftpunktocat-thomas.gif";
+					newImg.style.width = "300px";
+					document.body.appendChild(newImg);
+				}
 			}
-			
 			
 			
 			/*---- "onmouseover" ----*/
-			function
+			var enlargeThumbnail = function() {
+				var img1 = document.getElementById("img1");
+				img1.style.height = "300px";
+			}
 			
 			/*---- "onmouseout" ----*/
-			
-			/*---- "onkeydown" ----*/
+			var shrinkImage = function() {
+				var img1 = document.getElementById("img1");
+				img1.style.height = "100px";
+			}
 			
 			/*---- "onload" ----*/
-			
-			/*---- "onerror" ----*/
-			function error1() {
-				
+			function showJava() {
+				if(navigator.javaEnabled() == true) {
+					document.getElementById("showJavaHere").innerHTML = "Java Enabled";
+				} else {
+					document.getElementById("showJavaHere").innerHTML = "Java Disabled";
+				}
 			}
+			
+			function init() {
+				/* For Touch Event */
+				var touchableDiv = document.getElementById("touchableDiv");
+				touchableDiv.addEventListener("touchstart", toggleColor);
+
+				/* For Pointer Event */
+				// Not supported in Google Chrome
+				var touchableDiv2 = document.getElementById("touchableDiv2");
+				touchableDiv2.addEventListener("pointerdown", function() {console.log("Dangit, Jim!");});
+			}
+			
+			
+			/*---- Touch Event ----*/
+			function toggleColor() {
+				if(document.getElementById("touchableDiv").style.backgroundColor == "red") {
+					document.getElementById("touchableDiv").style.backgroundColor = "blue";
+				} else {
+					document.getElementById("touchableDiv").style.backgroundColor = "red";
+				}
+			}
+			
+			
+			/*---- Pointer Event ----*/
+			// Not supported in Google Chrome
+			function toggleDivSize() {
+				if(document.getElementById("touchableDiv2").style.width == "400px") {
+					document.getElementById("touchableDiv2").style.width = "200px";
+				} else {
+					document.getElementById("touchableDiv2").style.width = "400px";
+				}
+			}
+			
+			
+			/*---- Nasty Paths ----*/
+			
 			
         </script>
     </head>
-    <body>
-        <h1>JS-Events</h1>
-		<h3>See Browser Console</h3>
-		<img src="stormtroopocat.png" alt="Storm Troopocat" style="height:100px;" onclick="enlargeThumbnail()">
-		<img src="storm" onerror="">
-    </body>
+    <body onload="init()">
+		<div>
+			<h1>JS-Events</h1>
+			<h3>See Browser Console</h3>
+			<img src="media/stormtroopocat.png" title="StormTroopoCat" id="img1" style="height:100px;" onmouseover="enlargeThumbnail()" onmouseout="shrinkImage()">
+			<br>
+			<span id="showJavaHere"> Java? </span>
+		</div>
+		<div id="touchableDiv"> Touch Me
+		</div>
+		<div id="touchableDiv2"> Touch Me Too
+		</div>
+		<form onchange="chooseDaft()">
+			<input type="radio" name="DaftPunkMember" id="guyRadio" value="guy">Guy<br>
+			<input type="radio" name="DaftPunkMember" value="thomas">Thomas<br>
+		</form>
+		
+		<h4>Nasty Paths</h4>
+			<div onload=""></div>
+			<div onload=null></div>
+			<div onload=enlargeThumbnail></div>
+			<div onload="3"></div>
+			<div onchange="function doThis() {}></div>
+	</body>
 </html>

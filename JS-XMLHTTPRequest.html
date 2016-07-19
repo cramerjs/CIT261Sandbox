@@ -9,8 +9,10 @@
 		
 			/*---- XML HTTP Request ----*/
 			var xhttp = new XMLHttpRequest(); // creates a new XMLHttpRequest object
-			var url = "http://www.omdbapi.com/?t=The+Prestige&y=&plot=short&r=json"; // The Prestige
+			// var url = "http://www.omdbapi.com/?t=The+Prestige&y=&plot=short&r=json"; // The Prestige
 			// var url = "http://www.omdbapi.com/?t=Star+Wars%3A+Episode+IV+-+A+New+Hope&y=&plot=short&r=json"; // Star Wars Episode 4
+			var url = "http://api.openweathermap.org/data/2.5/weather?q=Brooklyn"; // Star Wars Episode 4
+
 			
 			// function to be executed when the readyState changes
 			xhttp.onreadystatechange = function() {
